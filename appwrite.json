@@ -1,0 +1,1079 @@
+{
+    "projectId": "68522ca80029b0107f18",
+    "projectName": "BRIDGE",
+    "settings": {
+        "services": {
+            "account": true,
+            "avatars": true,
+            "databases": true,
+            "locale": true,
+            "health": true,
+            "storage": true,
+            "teams": true,
+            "users": true,
+            "sites": true,
+            "functions": true,
+            "graphql": true,
+            "messaging": true
+        },
+        "auth": {
+            "methods": {
+                "jwt": true,
+                "phone": true,
+                "invites": true,
+                "anonymous": true,
+                "email-otp": true,
+                "magic-url": true,
+                "email-password": true
+            },
+            "security": {
+                "duration": 31536000,
+                "limit": 0,
+                "sessionsLimit": 10,
+                "passwordHistory": 0,
+                "passwordDictionary": false,
+                "personalDataCheck": false,
+                "sessionAlerts": false,
+                "mockNumbers": []
+            }
+        }
+    },
+    "databases": [
+        {
+            "$id": "6852308f0009dfd00630",
+            "name": "bridge_main",
+            "enabled": true
+        }
+    ],
+    "collections": [
+        {
+            "$id": "6852309d0034182c56e6",
+            "$permissions": [
+                "read(\"any\")",
+                "create(\"users\")"
+            ],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Users",
+            "enabled": true,
+            "documentSecurity": true,
+            "attributes": [
+                {
+                    "key": "fname",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 25
+                },
+                {
+                    "key": "lname",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 25
+                },
+                {
+                    "key": "age",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "bio",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 150,
+                    "default": "Tell us about You..."
+                },
+                {
+                    "key": "avatar_url",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 150
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "verified",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "active",
+                        "deleted"
+                    ],
+                    "format": "enum",
+                    "default": "active"
+                },
+                {
+                    "key": "feeling",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "Healthy",
+                        "So-so",
+                        "Down",
+                        "Hopeful",
+                        "Confused",
+                        "HBLMA",
+                        "Active",
+                        "Inactive"
+                    ],
+                    "format": "enum",
+                    "default": "Active"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "685230cf0032b63611cc",
+            "$permissions": [
+                "create(\"users\")"
+            ],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Stories",
+            "enabled": true,
+            "documentSecurity": true,
+            "attributes": [
+                {
+                    "key": "title",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 200
+                },
+                {
+                    "key": "content",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 10000
+                },
+                {
+                    "key": "author_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "category_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "story_type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "written",
+                        "audio",
+                        "prompt_response"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "privacy_setting",
+                    "type": "string",
+                    "array": false,
+                    "required": true,
+                    "elements": [
+                        "public",
+                        "community",
+                        "private"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "allow_responses",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": true
+                },
+                {
+                    "key": "allow_messages",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": true
+                },
+                {
+                    "key": "is_anonymous",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "tags",
+                    "type": "string",
+                    "required": true,
+                    "array": true,
+                    "size": 50
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "updated_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "published",
+                        "draft",
+                        "under_review",
+                        "flagged"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "view_count",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": 0,
+                    "max": 9223372036854775807,
+                    "default": 0
+                },
+                {
+                    "key": "audio_file_id",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 36
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftAuthors",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["author_id"],
+                    "orders": ["ASC"]
+                },
+                {
+                    "key": "siftStoryPublishedDate",
+                    "type": "key",
+                    "status": "available", 
+                    "attributes": ["status", "created_at"],
+                    "orders": ["ASC", "DESC"]
+                },
+                {
+                    "key": "siftRecentStories",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["category_id", "status", "created_at"], 
+                    "orders": ["ASC", "ASC", "DESC"]
+                },
+                {
+                    "key": "siftStoryContent",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": ["title", "content"],
+                    "orders": []
+                },
+                {
+                    "key": "siftStoryPrivacy",
+                    "type": "key", 
+                    "status": "available",
+                    "attributes": ["privacy_setting"],
+                    "orders": ["ASC"]
+                },
+                {
+                    "key": "siftFlaggedStories",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["status", "created_at"],
+                    "orders": ["ASC", "DESC"]
+                }
+            ]
+        },
+        {
+            "$id": "6852332c0025398b2d28",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Categories",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 100
+                },
+                {
+                    "key": "color",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 7
+                },
+                {
+                    "key": "icon",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50
+                },
+                {
+                    "key": "parent_category",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "sort_order",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "min": 0,
+                    "max": 9223372036854775807,
+                    "default": 0
+                },
+                {
+                    "key": "is_active",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": true
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftCategoriesByName",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": ["name"],
+                    "orders": ["ASC"]
+                }
+            ]
+        },
+        {
+            "$id": "6852333e003496db85eb",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Reactions",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "story_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "reaction_type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "support",
+                        "equal",
+                        "push"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftStoryReactions",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["story_id"],
+                    "orders": ["ASC"]
+                },
+                {
+                    "key": "siftReactionsFromUserOnStory",
+                    "type": "key",
+                    "status": "available", 
+                    "attributes": ["user_id", "story_id"],
+                    "orders": ["ASC", "ASC"]
+                },
+                {
+                    "key": "siftReactionTypeOnStory",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["story_id", "reaction_type"],
+                    "orders": ["ASC", "ASC"]
+                }
+            ]
+        },
+        {
+            "$id": "685233470039bea7f011",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Comments",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "story_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "author_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "content",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 5000
+                },
+                {
+                    "key": "comment_type",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "public",
+                        "private_to_author",
+                        "to_provider"
+                    ],
+                    "format": "enum",
+                    "default": "public"
+                },
+                {
+                    "key": "is_anonymous",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "published",
+                        "flagged",
+                        "deleted"
+                    ],
+                    "format": "enum",
+                    "default": "published"
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftCommentsOnStory",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["story_id", "status", "created_at"],
+                    "orders": ["ASC", "ASC", "DESC"]
+                },
+                {
+                    "key": "siftCommentsFromUserOnStory",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["author_id", "story_id", "status", "created_at"],
+                    "orders": ["ASC", "ASC", "ASC", "DESC"]
+                },
+                {
+                    "key": "siftCommentTypeOnStory",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["story_id", "comment_type"],
+                    "orders": ["ASC"]
+                }
+            ]
+        },
+        {
+            "$id": "6852335c00339c654056",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Messages",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "sender_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "recipient_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "content",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 2000
+                },
+                {
+                    "key": "message_type",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "direct",
+                        "story_related"
+                    ],
+                    "format": "enum",
+                    "default": "direct"
+                },
+                {
+                    "key": "related_story_id",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "is_read",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "array": false,
+                    "required": false,
+                    "elements": [
+                        "sent",
+                        "delivered",
+                        "deleted"
+                    ],
+                    "format": "enum",
+                    "default": "sent"
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftMessagesFromUserToUser",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["sender_id", "recipient_id", "status", "created_at"],
+                    "orders": ["ASC", "ASC", "ASC", "DESC"]
+                }
+            ]
+        },
+        {
+            "$id": "6852337d0023ed3d938f",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "User_Preferences",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "interests",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 100
+                },
+                {
+                    "key": "crisis_level",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "low",
+                        "moderate",
+                        "high"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "support_preferences",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 100
+                },
+                {
+                    "key": "notification_settings",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 2000
+                },
+                {
+                    "key": "content_filters",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 100
+                },
+                {
+                    "key": "privacy_settings",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 2000
+                },
+                {
+                    "key": "assessment_completed",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "assessment_date",
+                    "type": "datetime",
+                    "required": false,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "updated_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftUserPreferences",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["user_id"],
+                    "orders": ["ASC"]
+                }
+            ]
+        },
+        {
+            "$id": "685233880021dde3b196",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Resources",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "title",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 200
+                },
+                {
+                    "key": "description",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1000
+                },
+                {
+                    "key": "resource_type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "article",
+                        "video",
+                        "hotline",
+                        "provider",
+                        "technique"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "category_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "url",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 500
+                },
+                {
+                    "key": "content",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 10000
+                },
+                {
+                    "key": "location",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 200
+                },
+                {
+                    "key": "tags",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 50
+                },
+                {
+                    "key": "target_audience",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "elements": [
+                        "teens",
+                        "adults",
+                        "providers"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "crisis_appropriate",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "verification_status",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "verified",
+                        "pending",
+                        "unverified"
+                    ],
+                    "format": "enum",
+                    "default": "unverified"
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "updated_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftResourcesByContent",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": ["title", "description"],
+                    "orders": ["ASC", "ASC"]
+                }
+            ]
+        },
+        {
+            "$id": "685233be00039e03e381",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Notifications",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "reaction",
+                        "response",
+                        "message",
+                        "system"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "title",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 200
+                },
+                {
+                    "key": "message",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1000
+                },
+                {
+                    "key": "related_item_id",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "related_item_type",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "story",
+                        "message",
+                        "user"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "is_read",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "action_url",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 500
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "pending",
+                        "read",
+                        "dismissed",
+                        "archived",
+                        "hidden"
+                    ],
+                    "format": "enum"
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "siftNotificationsOfUser",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": ["user_id", "status", "is_read", "created_at"],
+                    "orders": ["ASC", "ASC", "ASC", "DESC"]
+                }
+            ]
+        },
+        {
+            "$id": "685233c60021b3c713b3",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Reports",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "reporter_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "reported_item_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "reported_item_type",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "story",
+                        "response",
+                        "user"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "reason",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "inappropriate",
+                        "spam",
+                        "safety_concern"
+                    ],
+                    "format": "enum"
+                },
+                {
+                    "key": "description",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "pending",
+                        "reviewed",
+                        "resolved",
+                        "dismissed"
+                    ],
+                    "format": "enum",
+                    "default": "pending"
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true,
+                    "array": false,
+                    "format": ""
+                },
+                {
+                    "key": "reviewed_by",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 36
+                },
+                {
+                    "key": "reviewed_at",
+                    "type": "datetime",
+                    "required": false,
+                    "array": false,
+                    "format": ""
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "685233d200039e03e381",
+            "$permissions": [],
+            "databaseId": "6852308f0009dfd00630",
+            "name": "Follows",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "follower_id",
+                    "type": "string",
+                    "required": true,
+                    "size": 36
+                },
+                {
+                    "key": "following_id", 
+                    "type": "string",
+                    "required": true,
+                    "size": 36
+                },
+                {
+                    "key": "created_at",
+                    "type": "datetime",
+                    "required": true
+                }
+            ]
+        }
+    ]
+}

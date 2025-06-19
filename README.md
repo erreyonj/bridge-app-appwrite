@@ -24,3 +24,13 @@ Clone this repository to your local machine using Git:
 ## 💡 Additional notes
 - This starter project is designed to streamline your React development with Appwrite.
 - Refer to the [Appwrite documentation](https://appwrite.io/docs) for detailed integration guidance.
+
+
+
+
+
+
+
+<!-- NOTES -->
+<!-- // Maybe store user_preferences for message screen orientation -->
+<!-- Algorithm is: get messages from user to user, the array should have [senderMessage, ] -->
